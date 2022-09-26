@@ -1,0 +1,30 @@
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        start=0
+        end=len(nums)-1
+        def firstO(start,end,target)->int:
+            s=-1
+            while start<=end:
+                mid=(start+end)//2
+                if nums[mid]<target:
+                    start=mid+1
+                elif nums[mid]>target:
+                    end=mid-1
+                else:
+                    s=mid
+                    end=mid-1
+            return s
+        def lastO(start,end,target)->int:
+            e=-1
+            while start<=end:
+                mid=(start+end)//2
+                if nums[mid]<target:
+                    start=mid+1
+                elif nums[mid]>target:
+                    end=mid-1
+                else:
+                    e=mid
+                    start=mid+1
+            return e
+        return [firstO(start,end,target),lastO(start,end,target)]
+            
