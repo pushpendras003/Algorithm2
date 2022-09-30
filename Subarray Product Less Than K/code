@@ -1,0 +1,16 @@
+class Solution:
+    def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:
+        j=0
+        c=1
+        l=0
+        for i in range(len(nums)):
+            c=c*nums[i]
+            if c>=k:
+                while c>=k and j<i:
+                    c//=nums[j]
+                    j+=1
+            if c<k:
+
+                l+=i-j+1
+        return l
+        
