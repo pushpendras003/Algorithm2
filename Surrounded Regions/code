@@ -1,0 +1,33 @@
+class Solution {
+public:
+    void solve(vector<vector<char>>& board) {
+        m = size(board), n = size(board[0]);
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (!visited[i][j] && board[i][j] == 'O') {
+                    bool valid = 1;
+                    dfs(board, i, j, valid);
+                    if (valid) {
+                        for (auto& [i, j]: region)
+                            board[i][j] = 'X';
+                    }
+                    region.clear();
+                }
+            }
+        }
+    }
+private:
+    int m = 0, n = 0, visited[200][200] = {}, dirs[5] = {0, -1, 0, 1, 0};
+    vector<pair<int, int>> region;
+    
+    void dfs(vector<vector<char>>& board, int i, int j, bool& valid) {
+        region.emplace_back(i, j);
+        visited[i][j] = 1;
+        valid = valid && (i > 0 && i < m-1 && j > 0 && j < n-1);
+        for (int k = 0; k < 4; k++) {
+            int ni = i + dirs[k], nj = j + dirs[k+1];
+            if (ni >= 0 && ni < m && nj >= 0 && nj < n && !visited[ni][nj] && board[ni][nj] == 'O')
+                dfs(board, ni, nj, valid);
+        }
+    }
+};
