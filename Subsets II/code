@@ -1,0 +1,31 @@
+class Solution {
+public:
+    void solve(vector<int>& nums,int n,vector<vector<int>> &ans,vector<int> tans){
+       if(n==0){
+          sort(tans.begin(),tans.end());
+          ans.push_back(tans);  
+           return ;
+       }
+        solve(nums,n-1,ans,tans);
+        tans.push_back(nums[n-1]);
+        solve(nums,n-1,ans,tans); 
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+       
+       vector<vector<int>> ans;
+       vector<int> tans;
+        solve(nums,nums.size(),ans,tans);
+
+        set<vector<int>> s;
+        vector<vector<int>> oans;
+                //cheking for duplicate vectors
+        for(int i=0;i<ans.size();i++){
+            if(s.find(ans[i])==s.end()){
+                s.insert(ans[i]);
+                oans.push_back(ans[i]);
+            }
+        }
+        
+        return oans;
+    }
+};
