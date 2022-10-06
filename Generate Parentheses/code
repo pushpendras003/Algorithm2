@@ -1,0 +1,19 @@
+class Solution {
+    void recursiveSol(vector<string>& ans, int n, int oc, int cc, string s){
+        if(cc==n and oc==n){
+            ans.push_back(s);
+            return;
+        }
+        
+        if(oc<n){
+            recursiveSol(ans, n, oc+1, cc, s+"(");
+        }
+        if(cc < oc) recursiveSol(ans, n, oc, cc+1, s+")");
+    }
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> ans;
+        recursiveSol(ans, n, 0, 0, "");
+        return ans;
+    }
+};
