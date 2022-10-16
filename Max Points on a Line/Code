@@ -1,0 +1,19 @@
+class Solution:
+    def maxPoints(self, points: List[List[int]]) -> int:
+        d={}
+        c=0
+        for i in range(len(points)-1):
+            for j in range(i+1,len(points)):
+                if points[j][0]-points[i][0]==0:
+                    m=10000000001
+                else:
+                    m=(points[j][1]-points[i][1])/(points[j][0]-points[i][0])
+                if m in d:
+                    d[m]+=1
+                else:
+                    d[m]=1
+            for k in d.values():
+                c=max(c,k)
+            d.clear()
+        return c+1
+
